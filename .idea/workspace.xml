@@ -5,25 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ee35319-242e-439e-952a-f103c5bbfe42" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/plot-functions-demo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plot-points-demo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesianj/GradientDescentVisualization.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/ice_cream_sales.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries-with-intellij-classes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenshot.png" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/MathUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/CartesianPlane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/CartesianPlane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/LabeledPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/Point.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/AwtCartesianPlane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/AwtCartesianPlane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/AwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/AwtUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/UnitConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/UnitConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesian/ImperativeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesianj/PlotFunctionsDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesianj/GradientDescentVisualization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesianj/GradientDescentVisualization.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesianj/PlotFunctionsDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesianj/PlotFunctionsDemo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +20,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="41696" />
+    <option name="totalTimeSeconds" value="55154" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -100,7 +89,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.GradientDescentVisualization">
     <configuration name="CollegeAlgebraGraphs" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.duncpro.cartesian.CollegeAlgebraGraphs" />
       <module name="CatesianJ.test" />

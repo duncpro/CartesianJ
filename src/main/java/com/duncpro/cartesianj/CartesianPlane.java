@@ -12,13 +12,13 @@ import static java.util.Objects.requireNonNull;
  * Represents a view of a Cartesian Plane. Can be used to plot functions as well as points.
  */
 public class CartesianPlane {
-    private final Set<LabeledPoint> points = new HashSet<>();
-    public void plot(LabeledPoint point) {
+    private final Set<Point> points = new HashSet<>();
+    public void plot(Point point) {
         requireNonNull(point);
         points.add(point);
         changeListeners.forEach(Runnable::run);
     }
-    public Set<LabeledPoint> getPoints() {
+    public Set<Point> getPoints() {
         return Set.copyOf(points);
     }
 
@@ -41,9 +41,9 @@ public class CartesianPlane {
         changeListeners.remove(onChange);
     }
 
-    private double yTickWidth = 20;
-    private double xTickWidth = 20;
-    public void setTickWidth(Axis axis, double size) {
+    private int yTickWidth = 20;
+    private int xTickWidth = 20;
+    public void setTickWidth(Axis axis, int size) {
         if (size <= 0) throw new IllegalArgumentException();
         switch (axis) {
             case X:
@@ -55,7 +55,7 @@ public class CartesianPlane {
         }
         changeListeners.forEach(Runnable::run);
     }
-    public double getTickWidth(Axis axis) {
+    public int getTickWidth(Axis axis) {
         requireNonNull(axis);
         switch (axis) {
             case X:
@@ -94,7 +94,7 @@ public class CartesianPlane {
 
     int horizontalOffset = 0;
     int verticalOffset = 0;
-    public int getViewOffset(Direction direction) {
+    public int getViewportOffset(Direction direction) {
         requireNonNull(direction);
         switch (direction) {
             case HORIZONTAL:
@@ -105,9 +105,16 @@ public class CartesianPlane {
         changeListeners.forEach(Runnable::run);
         throw new AssertionError();
     }
-    public void setViewOffset(Direction direction, int newOffset) {
-        requireNonNull(direction);
-        switch (direction) {
+
+    /**
+     * The viewport offset shifts the given dimension of the viewport by the given number of pixels.
+     * For example, for a horizontal viewport offset of 2, the y axis would appear 2 units closer
+     * to the right edge of the plane.
+     * For a vertical offset of 2, the x axis would appear 2 units closer to the bottom edge of the plane.
+     */
+    public void setViewportOffset(Direction dimension, int newOffset) {
+        requireNonNull(dimension);
+        switch (dimension) {
             case HORIZONTAL:
                 horizontalOffset = newOffset;
                 break;

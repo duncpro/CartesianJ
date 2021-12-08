@@ -2,18 +2,17 @@ package com.duncpro.cartesianj.awt;
 
 import com.duncpro.cartesianj.Axis;
 import com.duncpro.cartesianj.CartesianPlane;
-import com.duncpro.cartesianj.LabeledPoint;
+import com.duncpro.cartesianj.Point;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
-import java.util.Comparator;
-import java.util.Map;
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.duncpro.cartesianj.Direction.HORIZONTAL;
 import static com.duncpro.cartesianj.Direction.VERTICAL;
@@ -60,10 +59,10 @@ public class AwtCartesianPlane extends Canvas {
         });
     }
 
-    private void autofitPointsUsingStepSize() {
+    private void autofitPoints() {
         double maxX = plane.getPoints().stream()
-                .max(Comparator.comparing(LabeledPoint::getX))
-                .map(LabeledPoint::getX)
+                .max(Comparator.comparing(Point::getX))
+                .map(Point::getX)
                 .orElse(0d);
 
         while (getXAxisPositionPx() + convert.toPx(maxX, Axis.X) > getWidth()) {
@@ -71,8 +70,8 @@ public class AwtCartesianPlane extends Canvas {
         }
 
         double maxY = plane.getPoints().stream()
-                .max(Comparator.comparing(LabeledPoint::getY))
-                .map(LabeledPoint::getY)
+                .max(Comparator.comparing(Point::getY))
+                .map(Point::getY)
                 .orElse(0d);
 
         while (getYAxisPositionPx() + convert.toPx(maxY, Axis.Y) > getHeight()) {
@@ -81,11 +80,11 @@ public class AwtCartesianPlane extends Canvas {
     }
 
     public int getXAxisPositionPx() {
-        return (getHeight() / 2) + plane.getViewOffset(VERTICAL);
+        return (getHeight() / 2) + plane.getViewportOffset(VERTICAL);
     }
 
     public int getYAxisPositionPx() {
-        return (getWidth() / 2) - plane.getViewOffset(HORIZONTAL);
+        return (getWidth() / 2) + plane.getViewportOffset(HORIZONTAL);
     }
 
     /**
@@ -93,7 +92,7 @@ public class AwtCartesianPlane extends Canvas {
      * The returned value is an approximation and will very rarely be an evenly divisible number,
      * instead it is more likely to be a long ugly decimal.
      */
-    public double xPosToStep(int xPx) {
+    public double xPosToX(int xPx) {
         return convert.toStep(xPx - getYAxisPositionPx(), Axis.X);
     }
 
@@ -142,42 +141,99 @@ public class AwtCartesianPlane extends Canvas {
 
     private void paintXAxis(Graphics graphics) {
         graphics.drawLine(0, getXAxisPositionPx(), getWidth(), getXAxisPositionPx());
+        int visibleLeftEdgeX = 0;
+        int visibleRightEdgeX = visibleLeftEdgeX + getWidth();
+        int yAxisX = getYAxisPositionPx();
 
-        int ticksPerQuadrant = (int) (getWidth() / 2 / plane.getTickWidth(Axis.X));
-        for (int tick = 0; tick <= ticksPerQuadrant; tick++) {
-            int xPxNegative = getYAxisPositionPx() - (tick * convert.toPx(plane.getStepSize(Axis.X), Axis.X));
-            int xPxPositive = getYAxisPositionPx() + (tick * convert.toPx(plane.getStepSize(Axis.X), Axis.X));
-            graphics.drawLine(xPxNegative, getXAxisPositionPx() - 5, xPxNegative, getXAxisPositionPx() + 5);
-            graphics.drawLine(xPxPositive, getXAxisPositionPx() - 5, xPxPositive, getXAxisPositionPx() + 5);
+        // Quadrants I & IV
+        int distanceFromYAxisToRightEdgePx = visibleRightEdgeX - yAxisX;
+
+        int distanceFromYAxisToRightEdgeTicks = distanceFromYAxisToRightEdgePx / plane.getTickWidth(Axis.X);
+        for (int tick = 0; tick <= distanceFromYAxisToRightEdgeTicks; tick++) {
+            int xPx = getYAxisPositionPx() + (tick * plane.getTickWidth(Axis.X));
+            graphics.drawLine(xPx, getXAxisPositionPx() - 5, xPx, getXAxisPositionPx() + 5);
+        }
+
+        // Quadrants II & III
+        int distanceFromYAxisToLeftEdgePx = yAxisX - visibleLeftEdgeX;
+        int distanceFromYAxisToLeftEdgeTicks = distanceFromYAxisToLeftEdgePx / plane.getTickWidth(Axis.X);
+        for (int tick = 0; tick <= distanceFromYAxisToLeftEdgeTicks; tick++) {
+            int xPx = getYAxisPositionPx() - (tick * convert.toPx(plane.getStepSize(Axis.X), Axis.X));
+            graphics.drawLine(xPx, getXAxisPositionPx() - 5, xPx, getXAxisPositionPx() + 5);
         }
     }
 
     private void paintYAxis(Graphics graphics) {
         graphics.drawLine(getYAxisPositionPx(), 0, getYAxisPositionPx(), getHeight());
-        int ticksPerQuadrant = (int) (getHeight() / 2 / plane.getTickWidth(Axis.Y));
-        for (int tick = 0; tick <= ticksPerQuadrant; tick++) {
-            int yPx = tick * convert.toPx(plane.getStepSize(Axis.Y), Axis.Y);
-            graphics.drawLine(getYAxisPositionPx() - 5, getXAxisPositionPx() + yPx, getYAxisPositionPx() + 5, getXAxisPositionPx() + yPx);
-            graphics.drawLine(getYAxisPositionPx() - 5, getXAxisPositionPx() - yPx, getYAxisPositionPx() + 5, getXAxisPositionPx() - yPx);
+
+        int topEdgeY = 0;
+        int bottomEdgeY = topEdgeY + getHeight();
+        int xAxisY = getXAxisPositionPx();
+
+        int distanceFromXAxisToTopEdgePx = xAxisY - topEdgeY;
+        int distanceFromXAxisToTopEdgeTicks = distanceFromXAxisToTopEdgePx / plane.getTickWidth(Axis.Y);
+        for (int tick = 0; tick <= distanceFromXAxisToTopEdgeTicks; tick++) {
+            int yPx = getXAxisPositionPx() - tick * convert.toPx(plane.getStepSize(Axis.Y), Axis.Y);
+            graphics.drawLine(getYAxisPositionPx() - 5, yPx, getYAxisPositionPx() + 5, yPx);
+        }
+
+        int distanceFromXAxisToBottomEdgePx = bottomEdgeY - xAxisY;
+        int distanceFromXAxisToBottomEdgeTicks = distanceFromXAxisToBottomEdgePx / plane.getTickWidth(Axis.Y);
+        for (int tick = 0; tick <= distanceFromXAxisToBottomEdgeTicks; tick++) {
+            int yPx = getXAxisPositionPx() + (tick * convert.toPx(plane.getStepSize(Axis.Y), Axis.Y));
+            graphics.drawLine(getYAxisPositionPx() - 5, yPx, getYAxisPositionPx() + 5, yPx);
         }
     }
 
-    private void paintPoint(Graphics graphics, LabeledPoint point) {
-        graphics.drawOval(xToPos(point.getX()), yToPos(point.getY()), 5, 5);
+    final int POINT_SIZE = 8;
+    private void paintPoint(Graphics graphics, Point point) {
+        graphics.fillOval(xToPos(point.getX()) - (POINT_SIZE / 2), yToPos(point.getY()) - (POINT_SIZE / 2), POINT_SIZE, POINT_SIZE);
     }
 
     private void paintFunction(Graphics graphics, Function<Double, Double> function) {
-        for (int xPx = 0; xPx < getWidth(); xPx++) {
-            double x1 = xPosToStep(xPx);
-            double y1 = function.apply(x1);
+        List<Point> points = new ArrayList<>();
 
-            double x2 = xPosToStep(xPx + 1);
-            double y2 = function.apply(x2);
+        for (double x = 0; x <= convert.toStep(getWidth(), Axis.X); x += plane.getStepSize(Axis.X)) {
+            double yP = function.apply(x);
+            double yN = function.apply(x * -1);
 
-            if (Double.isNaN(y1) || Double.isNaN(y2)) continue;
-
-            graphics.drawLine(xToPos(x1), yToPos(y1), xToPos(x2), yToPos(y2));
+            points.add(new Point(x, yP));
+            points.add(new Point(x * -1, yN));
+            paintPoint(graphics, new Point(x, yP));
+            paintPoint(graphics, new Point(x * -1, yN));
         }
+
+        points.sort(Comparator.comparingDouble(Point::getX));
+
+        // Fill in points between
+        Set<Point> inbetweenSteps = new HashSet<>();
+        for (int i = 0; i + 1 < points.size(); i++) {
+            final var p1 = points.get(i);
+            final var p2 = points.get(i + 1);
+
+            if (Double.isNaN(p1.getY())) continue;
+            if (Double.isNaN(p2.getY())) continue;
+
+            for (int xPos = xToPos(p1.getX()); xPos <= xToPos(p2.getX()); xPos++) {
+                double x = xPosToX(xPos);
+                inbetweenSteps.add(new Point(x, function.apply(x)));
+            }
+        }
+
+        points.addAll(inbetweenSteps);
+        points.sort(Comparator.comparing(Point::getX));
+
+        for (int i = 0; i + 1 < points.size(); i++) {
+            final var p1 = points.get(i);
+            final var p2 = points.get(i + 1);
+
+            if (Double.isNaN(p1.getY())) continue;
+            if (Double.isNaN(p2.getY())) continue;
+
+            graphics.drawLine(xToPos(p1.getX()), yToPos(p1.getY()), xToPos(p2.getX()), yToPos(p2.getY()));
+
+        }
+
     }
 
 
@@ -213,8 +269,8 @@ public class AwtCartesianPlane extends Canvas {
         viewMenu.add(new JSeparator());
 
         // Autofit Points
-        final var autofitPointsButton = new JMenuItem("Autofit Points");
-        autofitPointsButton.addActionListener(event -> awtCartesianPlane.autofitPointsUsingStepSize());
+        final var autofitPointsButton = new JMenuItem("Autofit Points in Viewport");
+        autofitPointsButton.addActionListener(event -> awtCartesianPlane.autofitPoints());
         viewMenu.add(autofitPointsButton);
         viewMenu.add(new JSeparator());
 
@@ -238,22 +294,22 @@ public class AwtCartesianPlane extends Canvas {
         // Offset Settings
         final var moveViewportRight = new JMenuItem("Move Viewport Right");
         moveViewportRight.setAccelerator(KeyStroke.getKeyStroke("RIGHT"));
-        moveViewportRight.addActionListener(event -> plane.setViewOffset(HORIZONTAL, plane.getViewOffset(HORIZONTAL) + 1));
+        moveViewportRight.addActionListener(event -> plane.setViewportOffset(HORIZONTAL, plane.getViewportOffset(HORIZONTAL) - 1));
         viewMenu.add(moveViewportRight);
 
         final var moveViewportLeft = new JMenuItem("Move Viewport Left");
         moveViewportLeft.setAccelerator(KeyStroke.getKeyStroke("LEFT"));
-        moveViewportLeft.addActionListener(event -> plane.setViewOffset(HORIZONTAL, plane.getViewOffset(HORIZONTAL) - 1));
+        moveViewportLeft.addActionListener(event -> plane.setViewportOffset(HORIZONTAL, plane.getViewportOffset(HORIZONTAL) + 1));
         viewMenu.add(moveViewportLeft);
 
         final var moveViewportUp = new JMenuItem("Move Viewport Up");
         moveViewportUp.setAccelerator(KeyStroke.getKeyStroke("UP"));
-        moveViewportUp.addActionListener(event -> plane.setViewOffset(VERTICAL, plane.getViewOffset(VERTICAL) + 1));
+        moveViewportUp.addActionListener(event -> plane.setViewportOffset(VERTICAL, plane.getViewportOffset(VERTICAL) + 1));
         viewMenu.add(moveViewportUp);
 
         final var moveViewportDown = new JMenuItem("Move Viewport Down");
         moveViewportDown.setAccelerator(KeyStroke.getKeyStroke("DOWN"));
-        moveViewportDown.addActionListener(event -> plane.setViewOffset(VERTICAL, plane.getViewOffset(VERTICAL) - 1));
+        moveViewportDown.addActionListener(event -> plane.setViewportOffset(VERTICAL, plane.getViewportOffset(VERTICAL) - 1));
         viewMenu.add(moveViewportDown);
 
         window.getJMenuBar().add(viewMenu);

@@ -4,15 +4,13 @@ import java.util.Optional;
 
 import static java.util.Optional.ofNullable;
 
-public class LabeledPoint {
+public class Point {
     private final double x;
     private final double y;
-    private final String label;
 
-    public LabeledPoint(Double x, Double y, String label) {
+    public Point(Double x, Double y) {
         this.x = x;
         this.y = y;
-        this.label = label;
     }
 
     public double getX() {
@@ -21,9 +19,5 @@ public class LabeledPoint {
 
     public double getY() {
         return y;
-    }
-
-    public Optional<String> getLabel() {
-        return ofNullable(label);
     }
 }
