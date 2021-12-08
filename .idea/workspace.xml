@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ee35319-242e-439e-952a-f103c5bbfe42" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/MathUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/CartesianJ.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/CartesianPlaneViewport.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/ViewportUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/CartesianPlane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/CartesianPlane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/LabeledPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/Point.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/AwtCartesianPlane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/AwtCartesianPlane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/AwtCartesianPlane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/AwtCartesianPlaneViewport.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/UnitConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/UnitConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesianj/GradientDescentVisualization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesianj/GradientDescentVisualization.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesianj/PlotFunctionsDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesianj/PlotFunctionsDemo.java" afterDir="false" />
@@ -20,7 +22,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="55154" />
+    <option name="totalTimeSeconds" value="59711" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">

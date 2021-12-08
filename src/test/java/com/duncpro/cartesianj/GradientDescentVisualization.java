@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.duncpro.cartesianj.awt.AwtCartesianPlane.present;
+import static com.duncpro.cartesianj.CartesianJ.present;
+import static com.duncpro.cartesianj.ViewportUtils.fitAllPoints;
 import static java.lang.Math.pow;
 
 public class GradientDescentVisualization {
@@ -51,7 +52,8 @@ public class GradientDescentVisualization {
     public static void main(String[] args) throws IOException {
         final var plane = new CartesianPlane();
         readObservations().forEach(dp -> plane.plot(new Point(dp.temperature, dp.totalSales)));
-        present(plane);
-//        presentLossFunction();
+        final var viewport = present(plane);
+        fitAllPoints(viewport);
+        presentLossFunction();
     }
 }
