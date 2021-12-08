@@ -13,7 +13,7 @@ public class ViewportUtils {
                 .orElse(0d);
 
         while (viewport.getXAxisPosition() + viewport.getConverter().toPx(maxX, Axis.X) > viewport.getWidth()) {
-            viewport.setQuantitativeStepSize(Axis.X, viewport.getQuantitativeStepSize(Axis.X) + 1);
+            viewport.incrementQuantitativeStepSize(Axis.X);
         }
 
         double maxY = viewport.getPlane().getPoints().stream()
@@ -22,7 +22,7 @@ public class ViewportUtils {
                 .orElse(0d);
 
         while (viewport.getYAxisPosition() + viewport.getConverter().toPx(maxY, Axis.Y) > viewport.getHeight()) {
-            viewport.setQuantitativeStepSize(Axis.Y, viewport.getQuantitativeStepSize(Axis.Y) + 1);
+            viewport.incrementQuantitativeStepSize(Axis.Y);
         }
     }
 }
