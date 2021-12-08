@@ -41,26 +41,27 @@ public class CartesianPlane {
         changeListeners.remove(onChange);
     }
 
-    private double yAxisSize = 10;
-    private double xAxisSize = 10;
-    public void setAxisSize(Axis axis, double size) {
+    private double yTickWidth = 20;
+    private double xTickWidth = 20;
+    public void setTickWidth(Axis axis, double size) {
+        if (size <= 0) throw new IllegalArgumentException();
         switch (axis) {
             case X:
-                xAxisSize = size;
+                xTickWidth = size;
                 break;
             case Y:
-                yAxisSize = size;
+                yTickWidth = size;
                 break;
         }
         changeListeners.forEach(Runnable::run);
     }
-    public double getAxisSize(Axis axis) {
+    public double getTickWidth(Axis axis) {
         requireNonNull(axis);
         switch (axis) {
             case X:
-                return xAxisSize;
+                return xTickWidth;
             case Y:
-                return yAxisSize;
+                return yTickWidth;
         }
         throw new AssertionError();
     }
@@ -68,6 +69,8 @@ public class CartesianPlane {
     private double xAxisStepSize = 1;
     private double yAxisStepSize = 1;
     public void setStepSize(Axis axis, double stepSize) {
+        if (stepSize <= 0) throw new IllegalArgumentException();
+
         switch (axis) {
             case X:
                 xAxisStepSize = stepSize;

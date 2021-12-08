@@ -16,13 +16,15 @@ public abstract class UnitConverter {
 
     protected abstract int getViewDimensionPx(Axis axis);
 
-    public int toPx(double step, Axis axis) {
-        double pxPerStep = getViewDimensionPx(axis) / (2 * (plane.getAxisSize(axis) / plane.getStepSize(axis)));
-        return toIntExact(round(step * pxPerStep));
+    public int toPx(double n, Axis axis) {
+        double totalOnScreenTicks = getViewDimensionPx(axis) / plane.getTickWidth(axis);
+        double pxPerTick = getViewDimensionPx(axis) / totalOnScreenTicks;
+        return toIntExact(round((n / plane.getStepSize(axis)) * pxPerTick));
     }
 
     public double toStep(int px, Axis axis) {
-        double stepPerPx = (2 * (plane.getAxisSize(axis) / plane.getStepSize(axis)) / getViewDimensionPx(axis));
-        return stepPerPx * px;
+        double totalOnScreenTicks = getViewDimensionPx(axis) / plane.getTickWidth(axis);
+        double tickPerPx = totalOnScreenTicks / getViewDimensionPx(axis);
+        return (tickPerPx * px) * plane.getStepSize(axis);
     }
 }

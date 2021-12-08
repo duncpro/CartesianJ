@@ -5,20 +5,25 @@ in Java.
 
 Still a work in progress.
 
-## Usage Guide
+## Plotting Functions
 ````java
 import com.duncpro.cartesianj.CartesianPlane;
 
 import static com.duncpro.cartesianj.awt.AwtCartesianPlane.present;
 import static java.lang.Math.pow;
 
-public static void main(String[] args) {
-        final var plane = new CartesianPlane();
-        plane.plot("f", x -> pow(x, 3));
-        plane.plot("y", x -> (2 * x) + 3);
-        present(plane);
-    }
+final CartesianPlane plane = new CartesianPlane();
+
+plane.plot("f", x -> pow(x, 3));
+plane.plot("X", x -> sqrt(x));
+plane.plot("y", x -> 2 * x);
+
+present(plane);
 ````
 
-## Result
-![](screenshot.png)
+### Result
+![](plot-functions-demo.png)
+
+## Plotting Points
+### Result
+![](plot-points-demo.png)
