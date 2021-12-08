@@ -1,7 +1,7 @@
-package com.duncpro.cartesian.v2.awt;
+package com.duncpro.cartesianj.awt;
 
-import com.duncpro.cartesian.v2.Axis;
-import com.duncpro.cartesian.v2.CartesianPlane;
+import com.duncpro.cartesianj.Axis;
+import com.duncpro.cartesianj.CartesianPlane;
 
 import static java.lang.Math.round;
 import static java.lang.Math.toIntExact;

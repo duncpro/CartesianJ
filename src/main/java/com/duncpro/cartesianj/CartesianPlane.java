@@ -1,6 +1,9 @@
-package com.duncpro.cartesian.v2;
+package com.duncpro.cartesianj;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 
 import static java.util.Objects.requireNonNull;

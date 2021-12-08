@@ -1,6 +1,5 @@
-package com.duncpro.cartesian.v2;
+package com.duncpro.cartesianj;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.Optional.ofNullable;

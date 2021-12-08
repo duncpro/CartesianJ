@@ -1,4 +1,4 @@
-package com.duncpro.cartesian.v2;
+package com.duncpro.cartesianj;
 
 public enum Axis {
     X,

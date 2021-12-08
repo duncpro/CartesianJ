@@ -5,12 +5,12 @@ in Java.
 
 Still a work in progress.
 
-## Usage
+## Getting Started
 ````java
-import com.duncpro.cartesian.v2.CartesianPlane;
+import com.duncpro.cartesianj.CartesianPlane;
 
-import static com.duncpro.cartesian.v2.awt.AwtCartesianPlane.present;
-import static java.lang.Math.*;
+import static com.duncpro.cartesianj.awt.AwtCartesianPlane.present;
+import static java.lang.Math.pow;
 
 public static void main(String[] args) {
         final var plane = new CartesianPlane();

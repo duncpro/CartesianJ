@@ -1,4 +1,4 @@
-package com.duncpro.cartesian.v2.awt;
+package com.duncpro.cartesianj.awt;
 
 import java.awt.*;
 

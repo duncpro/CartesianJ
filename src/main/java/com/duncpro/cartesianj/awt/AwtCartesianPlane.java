@@ -1,22 +1,20 @@
-package com.duncpro.cartesian.v2.awt;
+package com.duncpro.cartesianj.awt;
 
-import com.duncpro.cartesian.v2.Axis;
-import com.duncpro.cartesian.v2.CartesianPlane;
-import com.duncpro.cartesian.v2.Direction;
-import com.duncpro.cartesian.v2.LabeledPoint;
+import com.duncpro.cartesianj.Axis;
+import com.duncpro.cartesianj.CartesianPlane;
+import com.duncpro.cartesianj.Direction;
+import com.duncpro.cartesianj.LabeledPoint;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.function.Function;
 
-import static com.duncpro.cartesian.v2.Direction.HORIZONTAL;
-import static com.duncpro.cartesian.v2.Direction.VERTICAL;
-import static com.duncpro.cartesian.v2.awt.AwtUtil.drawPixel;
-import static java.lang.Math.abs;
+import static com.duncpro.cartesianj.Direction.HORIZONTAL;
+import static com.duncpro.cartesianj.Direction.VERTICAL;
+import static com.duncpro.cartesianj.awt.AwtUtil.drawPixel;
 import static java.util.Objects.requireNonNull;
 
 public class AwtCartesianPlane extends Canvas {
@@ -59,7 +57,7 @@ public class AwtCartesianPlane extends Canvas {
     }
 
     public int getXAxisPositionPx() {
-        return (getHeight() / 2) + plane.getViewOffset(Direction.VERTICAL);
+        return (getHeight() / 2) + plane.getViewOffset(VERTICAL);
     }
 
     public int getYAxisPositionPx() {
