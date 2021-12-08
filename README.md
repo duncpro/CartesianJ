@@ -5,7 +5,7 @@ in Java.
 
 Still a work in progress.
 
-## Getting Started
+## Usage Guide
 ````java
 import com.duncpro.cartesianj.CartesianPlane;
 
