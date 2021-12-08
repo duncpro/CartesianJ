@@ -9,7 +9,7 @@ Still a work in progress.
 ````java
 import com.duncpro.cartesianj.CartesianPlane;
 
-import static com.duncpro.cartesianj.awt.AwtCartesianPlaneViewport.present;
+import static com.duncpro.cartesianj.CartesianJ.present;
 import static java.lang.Math.pow;
 
 final CartesianPlane plane = new CartesianPlane();
