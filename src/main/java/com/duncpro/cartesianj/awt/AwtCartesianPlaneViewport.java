@@ -164,8 +164,14 @@ public class AwtCartesianPlaneViewport extends Canvas implements CartesianPlaneV
 
             points.add(new Point(x, yP));
             points.add(new Point(x * -1, yN));
-            paintPoint(graphics, new Point(x, yP));
-            paintPoint(graphics, new Point(x * -1, yN));
+
+            if (!Double.isNaN(yP)) {
+                paintPoint(graphics, new Point(x, yP));
+            }
+
+            if (!Double.isNaN(yN)) {
+                paintPoint(graphics, new Point(x * -1, yN));
+            }
         }
 
         points.sort(Comparator.comparingDouble(Point::getX));
