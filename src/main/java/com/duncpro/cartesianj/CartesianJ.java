@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 
 import static com.duncpro.cartesianj.Direction.HORIZONTAL;
 import static com.duncpro.cartesianj.Direction.VERTICAL;
-import static com.duncpro.cartesianj.ViewportUtils.fitAllPoints;
+import static com.duncpro.cartesianj.ViewportUtils.fitViewportToPoints;
 
 public class CartesianJ {
     public static CartesianPlaneViewport present(CartesianPlane plane) {
@@ -51,7 +51,7 @@ public class CartesianJ {
         viewportMenu.add(new JSeparator());
 
         final var encapsulateDataPoints = new JMenuItem("Fit Points");
-        encapsulateDataPoints.addActionListener(event -> fitAllPoints(viewport));
+        encapsulateDataPoints.addActionListener(event -> fitViewportToPoints(viewport));
         viewportMenu.add(encapsulateDataPoints);
 
         // Step Settings

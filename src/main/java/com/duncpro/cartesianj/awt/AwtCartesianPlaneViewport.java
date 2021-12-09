@@ -3,19 +3,16 @@ package com.duncpro.cartesianj.awt;
 import com.duncpro.cartesianj.*;
 import com.duncpro.cartesianj.Point;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.duncpro.cartesianj.Direction.HORIZONTAL;
 import static com.duncpro.cartesianj.Direction.VERTICAL;
-import static com.duncpro.cartesianj.ViewportUtils.fitAllPoints;
 import static com.duncpro.cartesianj.awt.AwtUtil.generalPurposeColorMap;
 import static java.lang.Math.max;
 import static java.util.Objects.requireNonNull;

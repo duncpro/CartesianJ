@@ -1,27 +1,32 @@
 package com.duncpro.cartesianj;
 
 import java.util.Comparator;
+import java.util.function.Supplier;
 
 public class ViewportUtils {
-    public static void fitAllPoints(CartesianPlaneViewport viewport) {
+    public static void fitViewportToPoints(CartesianPlaneViewport viewport) {
         viewport.setQuantitativeStepSize(Axis.X, 1);
         viewport.setQuantitativeStepSize(Axis.Y, 1);
 
-        double maxX = viewport.getPlane().getPoints().stream()
+        final Supplier<Integer> maxX = () -> viewport.getPlane().getPoints().stream()
                 .max(Comparator.comparing(Point::getX))
                 .map(Point::getX)
-                .orElse(0d);
+                .map(x -> viewport.getConverter().toPx(x, Axis.X))
+                .map(x -> x + viewport.getYAxisPosition())
+                .orElse(0);
 
-        while (viewport.getXAxisPosition() + viewport.getConverter().toPx(maxX, Axis.X) > viewport.getWidth()) {
+        while (maxX.get() >= viewport.getWidth()) {
             viewport.incrementQuantitativeStepSize(Axis.X);
         }
 
-        double maxY = viewport.getPlane().getPoints().stream()
+        final Supplier<Integer> maxY = () -> viewport.getPlane().getPoints().stream()
                 .max(Comparator.comparing(Point::getY))
                 .map(Point::getY)
-                .orElse(0d);
+                .map(y -> viewport.getConverter().toPx(y, Axis.Y))
+                .map(y -> y + viewport.getXAxisPosition())
+                .orElse(0);
 
-        while (viewport.getYAxisPosition() + viewport.getConverter().toPx(maxY, Axis.Y) > viewport.getHeight()) {
+        while (maxY.get() >= viewport.getHeight()) {
             viewport.incrementQuantitativeStepSize(Axis.Y);
         }
     }
