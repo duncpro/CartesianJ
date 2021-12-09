@@ -41,7 +41,7 @@ fit the line to the points in realtime.
 ![](gradient-descent.jpg)
 
 ## Other Features
-- Qualitative and visual step size can be adjusted programmatically and
+- Quantitative and visual step size can be adjusted programmatically and
 also using the menubar.
 - The viewport can be fit to a data set programmatically and also using the menubar.
 See `Viewport > Fit Points`
