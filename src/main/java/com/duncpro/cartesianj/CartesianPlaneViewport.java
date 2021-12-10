@@ -1,6 +1,8 @@
 package com.duncpro.cartesianj;
 
-import com.duncpro.cartesianj.awt.UnitConverter;
+import com.duncpro.cartesianj.awt.AwtPixelConverter;
+
+import java.util.Comparator;
 
 public interface CartesianPlaneViewport {
     void setVisualStepSize(Axis axis, int size);
@@ -21,7 +23,7 @@ public interface CartesianPlaneViewport {
      */
     void setOffset(Direction dimension, int newOffset);
 
-    UnitConverter getConverter();
+    AwtPixelConverter getConverter();
 
     int getWidth();
 
@@ -77,5 +79,35 @@ public interface CartesianPlaneViewport {
     default void incrementVisualStepSize() {
         incrementVisualStepSize(Axis.X);
         incrementVisualStepSize(Axis.Y);
+    }
+
+    default void plot(Point point) {
+        getPlane().plot(point);
+        fitData();
+    }
+
+    default void fitData() {
+        setOffset(Direction.HORIZONTAL, 0);
+        setOffset(Direction.VERTICAL, 0);
+
+        int xStepsPerQuadrant = getWidth() / 2 / getVisualStepSize(Axis.X);
+        getPlane().getPlottedPoints().stream()
+                .max(Comparator.comparing(Point::getX))
+                .map(Point::getX)
+                .map(Math::abs)
+                .map(maxX -> maxX / xStepsPerQuadrant)
+                .map(Math::ceil)
+                .map(newStepSize -> Math.max(newStepSize, getQuantitativeStepSize(Axis.X)))
+                .ifPresent(stepSize -> setQuantitativeStepSize(Axis.X, stepSize));
+
+        int yStepsPerQuadrant = getHeight() / 2 / getVisualStepSize(Axis.Y);
+        getPlane().getPlottedPoints().stream()
+                .max(Comparator.comparing(Point::getY))
+                .map(Point::getY)
+                .map(Math::abs)
+                .map(maxY -> maxY / yStepsPerQuadrant)
+                .map(Math::ceil)
+                .map(newStepSize -> Math.max(newStepSize, getQuantitativeStepSize(Axis.Y)))
+                .ifPresent(stepSize -> setQuantitativeStepSize(Axis.Y, stepSize));
     }
 }

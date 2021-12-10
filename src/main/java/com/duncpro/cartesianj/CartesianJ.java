@@ -6,12 +6,15 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.duncpro.cartesianj.Direction.HORIZONTAL;
 import static com.duncpro.cartesianj.Direction.VERTICAL;
-import static com.duncpro.cartesianj.ViewportUtils.fitViewportToPoints;
 
 public class CartesianJ {
+    private static final Set<Window> windows = new HashSet<>();
+
     public static CartesianPlaneViewport present(CartesianPlane plane) {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
         System.setProperty("apple.awt.application.name", "CartesianJ");
@@ -51,7 +54,7 @@ public class CartesianJ {
         viewportMenu.add(new JSeparator());
 
         final var encapsulateDataPoints = new JMenuItem("Fit Points");
-        encapsulateDataPoints.addActionListener(event -> fitViewportToPoints(viewport));
+        encapsulateDataPoints.addActionListener(event -> viewport.fitData());
         viewportMenu.add(encapsulateDataPoints);
 
         // Step Settings
@@ -78,8 +81,15 @@ public class CartesianJ {
         stepMenu.add(decreaseTickFrequency);
         stepMenu.add(new JSeparator());
 
+        int maxWindowsHorizontally = screenDimensions.width / windowSize;
+        int maxWindowsVertically = screenDimensions.height / windowSize;
+        int windowRow = windows.size() % maxWindowsHorizontally;
+        int windowCol = windows.size() % maxWindowsVertically;
+        window.setLocation(windowRow * windowSize, windowCol * windowSize);
         window.setVisible(true);
         window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        plane.getTitle().ifPresent(window::setTitle);
+        windows.add(window);
         return viewport;
     }
 }

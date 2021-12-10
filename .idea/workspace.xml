@@ -6,8 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="8ee35319-242e-439e-952a-f103c5bbfe42" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/CartesianJ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/CartesianJ.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/CartesianPlane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/CartesianPlane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/CartesianPlaneViewport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/CartesianPlaneViewport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/ViewportUtils.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/AwtCartesianPlaneViewport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/AwtCartesianPlaneViewport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/UnitConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/duncpro/cartesianj/awt/AwtPixelConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesianj/GradientDescentVisualization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesianj/GradientDescentVisualization.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesianj/PlotFunctionsDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/duncpro/cartesianj/PlotFunctionsDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/ice_cream_sales.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/ice_cream_sales.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +22,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="77043" />
+    <option name="totalTimeSeconds" value="88997" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -90,7 +97,7 @@
       <module name="CatesianJ.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.duncpro.cartesianj.*" />
+          <option name="PATTERN" value="com.duncpro.cartesianj.awt.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -103,7 +110,7 @@
       <module name="CartesianJ.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.duncpro.cartesianj.*" />
+          <option name="PATTERN" value="com.duncpro.cartesianj.awt.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -118,7 +125,7 @@
       <module name="CartesianJ.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.duncpro.cartesianj.*" />
+          <option name="PATTERN" value="com.duncpro.cartesianj.awt.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>

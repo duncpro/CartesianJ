@@ -1,9 +1,8 @@
 package com.duncpro.cartesianj;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Function;
 
 import static java.util.Objects.requireNonNull;
@@ -12,13 +11,23 @@ import static java.util.Objects.requireNonNull;
  * Represents a view of a Cartesian Plane. Can be used to plot functions as well as points.
  */
 public class CartesianPlane {
-    private final Set<Point> points = new HashSet<>();
+    private final String title;
+
+    public CartesianPlane(String title) {
+        this.title = title;
+    }
+
+    public CartesianPlane() {
+        this(null);
+    }
+
+    private final Set<Point> points = new CopyOnWriteArraySet<>();
     public void plot(Point point) {
         requireNonNull(point);
         points.add(point);
         changeListeners.forEach(Runnable::run);
     }
-    public Set<Point> getPoints() {
+    public Set<Point> getPlottedPoints() {
         return Set.copyOf(points);
     }
 
@@ -29,7 +38,7 @@ public class CartesianPlane {
         functions.put(label, f);
         changeListeners.forEach(Runnable::run);
     }
-    public Map<String, Function<Double, Double>> getFunctions() {
+    public Map<String, Function<Double, Double>> getPlottedFunctions() {
         return Map.copyOf(functions);
     }
 
@@ -39,5 +48,9 @@ public class CartesianPlane {
     }
     public void removeChangeListener(Runnable onChange) {
         changeListeners.remove(onChange);
+    }
+
+    public Optional<String> getTitle() {
+        return Optional.ofNullable(title);
     }
 }

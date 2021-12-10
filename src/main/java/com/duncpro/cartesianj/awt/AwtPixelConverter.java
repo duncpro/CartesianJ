@@ -8,10 +8,10 @@ import static java.lang.Math.round;
 import static java.lang.Math.toIntExact;
 import static java.util.Objects.requireNonNull;
 
-public class UnitConverter {
+public class AwtPixelConverter {
     private final CartesianPlaneViewport viewport;
 
-    public UnitConverter(CartesianPlaneViewport viewport) {
+    public AwtPixelConverter(CartesianPlaneViewport viewport) {
         this.viewport = requireNonNull(viewport);
     }
 

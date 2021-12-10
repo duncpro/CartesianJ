@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import static com.duncpro.cartesianj.CartesianJ.present;
 import static com.duncpro.cartesianj.MathUtil.round;
-import static com.duncpro.cartesianj.ViewportUtils.fitViewportToPoints;
+import static java.lang.Math.pow;
 
 public class GradientDescentVisualization {
     static List<Point> readObservations() {
@@ -30,8 +30,15 @@ public class GradientDescentVisualization {
         return (x) -> (x * slope) + yIntercept;
     }
 
-    static void linearModelUsingGradientDescent(List<Point> observations, CartesianPlane plane) {
-        final var learningRate = 0.00001;
+    static double loss(Function<Double, Double> line, List<Point> observations) {
+        return observations.stream()
+                .map(point -> pow(point.getY() - line.apply(point.getX()), 2))
+                .reduce(Double::sum)
+                .orElseThrow();
+    }
+
+    static void visualizeGradientDescent(List<Point> observations, CartesianPlane dataPlot, CartesianPlaneViewport slopeLossPlot, CartesianPlaneViewport interceptLossPlot) {
+        final var learningRate = 0.0001;
 
         final BiFunction<Double, Double, Double> betterIntercept = (m, b) ->
                 observations.stream()
@@ -50,7 +57,7 @@ public class GradientDescentVisualization {
                         .orElseThrow();
 
         double idealIntercept = 0;
-        double idealSlope = -1;
+        double idealSlope = 0;
         double prevIntercept;
         double prevSlope;
         do {
@@ -59,19 +66,24 @@ public class GradientDescentVisualization {
             idealIntercept = betterIntercept.apply(prevSlope, prevIntercept);
             idealSlope = betterSlope.apply(prevSlope, idealIntercept);
             System.out.println("slope: " + idealSlope + ", intercept: " + idealIntercept);
-            plane.plot("f", line(idealSlope, idealIntercept));
+
+            final var model = line(idealSlope, idealIntercept);
+            dataPlot.plot("f", model);
+            slopeLossPlot.plot(new Point(idealSlope, loss(model, observations)));
+            interceptLossPlot.plot(new Point(idealIntercept, loss(model, observations)));
         } while (idealIntercept != prevIntercept || idealSlope != prevSlope);
     }
 
     public static void main(String[] args) {
         final var observations = readObservations();
 
-        final var plane = new CartesianPlane();
-        observations.forEach(plane::plot);
+        final var dataPlot = present(new CartesianPlane("Data"));
+        final var slopeLossPlot = present(new CartesianPlane("Slope"));
+        final var interceptLossPlot = present(new CartesianPlane("Y-Intercept"));
 
-        final var viewport = present(plane);
-        fitViewportToPoints(viewport);
+        observations.forEach(dataPlot::plot);
+        dataPlot.fitData();
 
-        linearModelUsingGradientDescent(observations, plane);
+        visualizeGradientDescent(observations, dataPlot.getPlane(), slopeLossPlot, interceptLossPlot);
     }
 }
