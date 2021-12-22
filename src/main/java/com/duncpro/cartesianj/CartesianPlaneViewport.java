@@ -3,6 +3,7 @@ package com.duncpro.cartesianj;
 import com.duncpro.cartesianj.awt.AwtPixelConverter;
 
 import java.util.Comparator;
+import java.util.function.Function;
 
 public interface CartesianPlaneViewport {
     void setVisualStepSize(Axis axis, int size);
@@ -84,6 +85,10 @@ public interface CartesianPlaneViewport {
     default void plot(Point point) {
         getPlane().plot(point);
         fitData();
+    }
+
+    default void plot(String name, Function<Double, Double> f) {
+        getPlane().plot(name, f);
     }
 
     default void fitData() {
